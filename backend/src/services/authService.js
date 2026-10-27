@@ -2,14 +2,21 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 export async function loginAdmin({ id, password }) {
-  if (!id || !password) {
-    const error = new Error('Admin ID and password are required.');
+  if (!password) {
+    const error = new Error('Password is required.');
     error.statusCode = 400;
     throw error;
   }
 
   const validAdminId = process.env.ADMIN_ID;
-  if (!validAdminId || id !== validAdminId) {
+  if (!validAdminId) {
+    console.error('ADMIN_ID environment variable is not configured.');
+    const error = new Error('Server authentication not configured.');
+    error.statusCode = 500;
+    throw error;
+  }
+
+  if (id && id !== validAdminId) {
     const error = new Error('Invalid Admin ID or Password.');
     error.statusCode = 401;
     throw error;

@@ -12,8 +12,8 @@ services:
     environment:
       - MONGO_URI=${MONGO_URI}
       - TESSERACT_PATH=/usr/bin/tesseract
-      - ADMIN_ID=${ADMIN_ID:-admin}
-      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin123}
+      - ADMIN_ID=${ADMIN_ID}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
       - GEMINI_API_KEY=${GEMINI_API_KEY}
     restart: unless-stopped
 
@@ -28,7 +28,7 @@ services:
       - MONGO_URI=${MONGO_URI}
       - DB_NAME=${DB_NAME:-vtu_database}
       - JWT_SECRET=${JWT_SECRET}
-      - ADMIN_ID=${ADMIN_ID:-admin}
+      - ADMIN_ID=${ADMIN_ID}
       - ADMIN_PW_HASH=${ADMIN_PW_HASH}
       - GEMINI_API_KEY=${GEMINI_API_KEY}
       - GOOGLE_SERVICE_ACCOUNT_EMAIL=${GOOGLE_SERVICE_ACCOUNT_EMAIL}
@@ -71,7 +71,7 @@ services:
       - ALLOWED_GROUPS=${ALLOWED_GROUPS:-*}
 
       - GEMINI_API_KEY=${GEMINI_API_KEY}
-      - ADMIN_ID=${ADMIN_ID:-admin}
-      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin123}
+      - ADMIN_ID=${ADMIN_ID}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
       - DRY_RUN=${DRY_RUN:-false}
     restart: unless-stopped

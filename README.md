@@ -657,7 +657,7 @@ npm start
 | `PORT` | `5000` | Backend API server port |
 | `MONGO_URI` | — | MongoDB Atlas / local connection string |
 | `DB_NAME` | `vtu_database` | MongoDB database name |
-| `ADMIN_ID` | `admin` | SPC Admin username |
+| `ADMIN_ID` | — | SPC Admin username (configured in `.env`) |
 | `ADMIN_PW_HASH` | — | bcrypt hash of the SPC Admin password (generate with `node scripts/generate-hash.js`) |
 | `JWT_SECRET` | — | Secret key for signing admin JWT tokens |
 | `GEMINI_API_KEY` | — | Google Gemini API key for notice extraction |
@@ -685,8 +685,8 @@ npm start
 | `MONGO_URI` | — | MongoDB connection string (same as backend) |
 | `DB_NAME` | `vtu_database` | Target database for saving student results |
 | `TESSERACT_PATH` | `/usr/bin/tesseract` | Absolute path to tesseract binary on host or container |
-| `ADMIN_ID` | `admin` | Admin username for scraper service endpoints |
-| `ADMIN_PASSWORD` | `admin123` | Admin password for scraper service endpoints |
+| `ADMIN_ID` | — | Admin username for scraper service endpoints |
+| `ADMIN_PASSWORD` | — | Admin password for scraper service endpoints |
 | `GEMINI_API_KEY` | — | Optional fallback Gemini API key |
 
 ### 4. WhatsApp Bot (`whatsapp-bot/.env`)

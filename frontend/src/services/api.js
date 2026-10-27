@@ -111,7 +111,7 @@ export async function adminLoginApi({ id, password }) {
   if (res.ok && data.token) {
     return data;
   }
-  throw new Error('Authentication rejected');
+  throw new Error(data?.detail || 'Authentication rejected');
 }
 
 // ----------------- AI PARSER -----------------

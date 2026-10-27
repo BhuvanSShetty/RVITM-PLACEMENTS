@@ -618,9 +618,9 @@ def save_events_to_json(events):
     except Exception:
         return False
 
-# Predefined/configured admin credentials
-ADMIN_ID = os.getenv("ADMIN_ID", "admin")
-ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD", "admin123")
+# Predefined/configured admin credentials from environment
+ADMIN_ID = os.getenv("ADMIN_ID")
+ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD")
 DUMMY_TOKEN = "dummy-admin-jwt-token"
 
 # Dual-storage configuration: Auto-detect if cloud MongoDB URI is configured

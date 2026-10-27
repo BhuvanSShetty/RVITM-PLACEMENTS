@@ -1,22 +1,30 @@
 import React, { useState } from 'react';
-import { sha256 } from '../../utils/sha256.js';
+import { adminLoginApi } from '../../services/api.js';
 
 export default function SPCPasswordModal({ onClose, onSuccess }) {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const pwHash = await sha256(password);
-    if (
-      pwHash === '959bb004eb614b51840f0754e29012b627dae2bbb42232bf1751b578a1d6176b' ||
-      pwHash === '74ffa579c6aa545cdcbc5faf5fbfa3c889ee6aa669dd2245e35b64536a2c2c76'
-    ) {
-      onSuccess();
-      onClose();
-    } else {
-      setErrorMsg('Invalid Access Password.');
+    setErrorMsg('');
+    setIsSubmitting(true);
+
+    try {
+      const data = await adminLoginApi({ password });
+      if (data?.token) {
+        sessionStorage.setItem('adminToken', data.token);
+        localStorage.setItem('adminToken', data.token);
+        onSuccess();
+        onClose();
+        return;
+      }
+    } catch (err) {
+      setErrorMsg(err?.message || 'Invalid Access Password.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -91,8 +99,8 @@ export default function SPCPasswordModal({ onClose, onSuccess }) {
           <button type="button" className="form-cancel-btn" onClick={onClose}>
             Cancel
           </button>
-          <button type="submit" className="form-submit-btn">
-            Authorize
+          <button type="submit" className="form-submit-btn" disabled={isSubmitting}>
+            {isSubmitting ? 'Authorizing...' : 'Authorize'}
           </button>
         </div>
       </form>

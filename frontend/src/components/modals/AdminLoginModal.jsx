@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { sha256 } from '../../utils/sha256.js';
 import { useAdminLoginMutation } from '../../hooks/useApiQueries.js';
 
 export default function AdminLoginModal({ onClose, onAuthenticated }) {
