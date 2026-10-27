@@ -315,6 +315,7 @@ export default function AIPreviewModal({ initialEvents, onClose, onBack, onConfi
                   <button
                     type="button"
                     className={`format-btn ${ev.mode === 'online' ? 'active' : ''}`}
+                    data-value="online"
                     onClick={() => updateEvent(idx, 'mode', ev.mode === 'online' ? '' : 'online')}
                     style={{ padding: '6px 12px', fontSize: '0.75rem', flex: 1 }}
                   >
@@ -323,6 +324,7 @@ export default function AIPreviewModal({ initialEvents, onClose, onBack, onConfi
                   <button
                     type="button"
                     className={`format-btn ${ev.mode === 'offline' ? 'active' : ''}`}
+                    data-value="offline"
                     onClick={() => updateEvent(idx, 'mode', ev.mode === 'offline' ? '' : 'offline')}
                     style={{ padding: '6px 12px', fontSize: '0.75rem', flex: 1 }}
                   >
@@ -347,6 +349,7 @@ export default function AIPreviewModal({ initialEvents, onClose, onBack, onConfi
                   <button
                     type="button"
                     className={`location-btn ${ev.location === 'rvce' ? 'active' : ''}`}
+                    data-value="rvce"
                     onClick={() => updateEvent(idx, 'location', ev.location === 'rvce' ? '' : 'rvce')}
                     style={{ padding: '6px 10px', fontSize: '0.75rem', flex: 1 }}
                   >
@@ -355,6 +358,7 @@ export default function AIPreviewModal({ initialEvents, onClose, onBack, onConfi
                   <button
                     type="button"
                     className={`location-btn ${ev.location === 'rvitm' ? 'active' : ''}`}
+                    data-value="rvitm"
                     onClick={() => updateEvent(idx, 'location', ev.location === 'rvitm' ? '' : 'rvitm')}
                     style={{ padding: '6px 10px', fontSize: '0.75rem', flex: 1 }}
                   >
@@ -363,6 +367,7 @@ export default function AIPreviewModal({ initialEvents, onClose, onBack, onConfi
                   <button
                     type="button"
                     className={`location-btn ${ev.location === 'worksite' ? 'active' : ''}`}
+                    data-value="worksite"
                     onClick={() =>
                       updateEvent(idx, 'location', ev.location === 'worksite' ? '' : 'worksite')
                     }
@@ -390,6 +395,7 @@ export default function AIPreviewModal({ initialEvents, onClose, onBack, onConfi
                 <button
                   type="button"
                   className={`studenttype-btn ${ev.studentType === 'BE' ? 'active' : ''}`}
+                  data-value="BE"
                   onClick={() =>
                     updateEvent(idx, 'studentType', ev.studentType === 'BE' ? '' : 'BE')
                   }
@@ -400,6 +406,7 @@ export default function AIPreviewModal({ initialEvents, onClose, onBack, onConfi
                 <button
                   type="button"
                   className={`studenttype-btn ${ev.studentType === 'MCA' ? 'active' : ''}`}
+                  data-value="MCA"
                   onClick={() =>
                     updateEvent(idx, 'studentType', ev.studentType === 'MCA' ? '' : 'MCA')
                   }
@@ -410,6 +417,7 @@ export default function AIPreviewModal({ initialEvents, onClose, onBack, onConfi
                 <button
                   type="button"
                   className={`studenttype-btn ${ev.studentType === 'BE | MCA' ? 'active' : ''}`}
+                  data-value="BE | MCA"
                   onClick={() =>
                     updateEvent(idx, 'studentType', ev.studentType === 'BE | MCA' ? '' : 'BE | MCA')
                   }
@@ -438,6 +446,7 @@ export default function AIPreviewModal({ initialEvents, onClose, onBack, onConfi
                     key={rnd}
                     type="button"
                     className={`subtype-btn ${ev.subtypes.includes(rnd) ? 'active' : ''}`}
+                    data-value={rnd}
                     onClick={() => toggleSubtype(idx, rnd)}
                     style={{ padding: '6px 12px', fontSize: '0.75rem' }}
                   >

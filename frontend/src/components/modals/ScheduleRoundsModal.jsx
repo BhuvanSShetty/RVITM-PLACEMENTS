@@ -285,14 +285,16 @@ export default function ScheduleRoundsModal({ event, onClose, onScheduled }) {
                       <button
                         type="button"
                         className={`format-btn ${row.mode === 'online' ? 'active' : ''}`}
-                        onClick={() => updateRow(index, 'mode', 'online')}
+                        data-value="online"
+                        onClick={() => updateRow(index, 'mode', row.mode === 'online' ? '' : 'online')}
                       >
                         Online
                       </button>
                       <button
                         type="button"
                         className={`format-btn ${row.mode === 'offline' ? 'active' : ''}`}
-                        onClick={() => updateRow(index, 'mode', 'offline')}
+                        data-value="offline"
+                        onClick={() => updateRow(index, 'mode', row.mode === 'offline' ? '' : 'offline')}
                       >
                         Offline
                       </button>
