@@ -42,6 +42,9 @@ export default function CompanySearch({
     setHasSearched(false);
   };
 
+  const hasInput = rawQuery.length > 0;
+  const showResults = hasSearched || hasInput;
+
   return (
     <div className="calendar-search-drawer" id="calendar-search-drawer" style={{ display: 'block' }}>
       <div className="cal-search-inner">
@@ -69,7 +72,6 @@ export default function CompanySearch({
               value={query}
               onChange={(e) => {
                 setQuery(e.target.value);
-                setHasSearched(false);
               }}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
@@ -118,7 +120,7 @@ export default function CompanySearch({
           </button>
         </div>
 
-        {hasSearched && (
+        {showResults && (
           <div className="cal-search-results-panel" id="cal-search-results-panel" style={{ display: 'block' }}>
             {!rawQuery ? (
               <div className="cal-search-empty-prompt">

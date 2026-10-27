@@ -31,7 +31,7 @@ export default function CalendarDayCell({
     <div
       className={cellClass}
       onClick={() => {
-        if (isCurrentMonth) {
+        if (dateStr && onSelectDate) {
           onSelectDate(dateStr);
         }
       }}
@@ -43,7 +43,9 @@ export default function CalendarDayCell({
             <EventPill key={ev.id} event={ev} onClick={onEventClick} />
           ))}
           {extraCount > 0 && (
-            <div className="calendar-event-more">+{extraCount} more</div>
+            <div className="calendar-event-more" title="View all scheduled events for this date">
+              +{extraCount} more
+            </div>
           )}
         </div>
       )}

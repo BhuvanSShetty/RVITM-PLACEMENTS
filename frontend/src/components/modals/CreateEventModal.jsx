@@ -20,9 +20,13 @@ export default function CreateEventModal({
   const [saving, setSaving] = useState(false);
 
   const toggleSubtype = (val) => {
-    setSubtypes((prev) =>
-      prev.includes(val) ? prev.filter((s) => s !== val) : [...prev, val]
-    );
+    setSubtypes((prev) => {
+      const exists = prev.some((s) => String(s).trim().toLowerCase() === val.toLowerCase());
+      if (exists) {
+        return prev.filter((s) => String(s).trim().toLowerCase() !== val.toLowerCase());
+      }
+      return [...prev, val];
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -174,17 +178,22 @@ export default function CreateEventModal({
         <div className="form-group">
           <label>Rounds</label>
           <div className="subtypes-buttons-group">
-            {['PPT', 'OA', 'Technical'].map((rnd) => (
-              <button
-                key={rnd}
-                type="button"
-                className={`subtype-btn ${subtypes.includes(rnd) ? 'active' : ''}`}
-                data-value={rnd}
-                onClick={() => toggleSubtype(rnd)}
-              >
-                {rnd}
-              </button>
-            ))}
+            {['OA', 'Technical', 'Interview', 'HR', 'PPT', 'GD'].map((rnd) => {
+              const isSelected = subtypes.some(
+                (s) => String(s).trim().toLowerCase() === rnd.toLowerCase()
+              );
+              return (
+                <button
+                  key={rnd}
+                  type="button"
+                  className={`subtype-btn ${isSelected ? 'active' : ''}`}
+                  data-value={rnd}
+                  onClick={() => toggleSubtype(rnd)}
+                >
+                  {rnd}
+                </button>
+              );
+            })}
           </div>
         </div>
         <div className="form-group">

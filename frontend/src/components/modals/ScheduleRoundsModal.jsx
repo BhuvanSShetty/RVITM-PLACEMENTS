@@ -24,13 +24,21 @@ export default function ScheduleRoundsModal({ event, onClose, onScheduled }) {
     if (descSnippet.length > 90) descSnippet = descSnippet.substring(0, 87) + '...';
   }
 
+  const defaultLocation = (() => {
+    const l = (event.location || 'rvce').trim().toLowerCase();
+    if (l === 'oncampus') return 'rvitm';
+    if (l === 'offcampus') return 'rvce';
+    return l;
+  })();
+
   const [rows, setRows] = useState([
     {
       id: 1,
       stage: existingSubtypes[0] || 'OA',
       customStage: '',
       date: todayStr,
-      mode: event.mode || 'online',
+      mode: (event.mode || 'online').trim().toLowerCase(),
+      location: defaultLocation,
     },
   ]);
   const [keepTbd, setKeepTbd] = useState(true);
@@ -52,7 +60,8 @@ export default function ScheduleRoundsModal({ event, onClose, onScheduled }) {
         stage: availableRounds[0] || 'Technical',
         customStage: '',
         date: todayStr,
-        mode: event.mode || 'online',
+        mode: (event.mode || 'online').trim().toLowerCase(),
+        location: defaultLocation,
       },
     ]);
   };
@@ -98,7 +107,7 @@ export default function ScheduleRoundsModal({ event, onClose, onScheduled }) {
           title: event.title,
           type: event.type || 'exams',
           mode: row.mode || event.mode || 'online',
-          location: event.location || 'rvce',
+          location: row.location || event.location || 'rvce',
           studentType: event.studentType || null,
           subtypes: [stageName],
           date: row.date,
@@ -242,7 +251,7 @@ export default function ScheduleRoundsModal({ event, onClose, onScheduled }) {
                           type="button"
                           className={`schedule-stage-pill ${isSelected ? 'active' : ''}`}
                           onClick={() => {
-                            updateRow(index, 'stage', rnd);
+                            updateRow(index, 'stage', isSelected ? '' : rnd);
                           }}
                         >
                           {rnd}
@@ -252,7 +261,7 @@ export default function ScheduleRoundsModal({ event, onClose, onScheduled }) {
                     <button
                       type="button"
                       className={`schedule-stage-pill ${isCustom ? 'active' : ''}`}
-                      onClick={() => updateRow(index, 'stage', 'Custom')}
+                      onClick={() => updateRow(index, 'stage', isCustom ? '' : 'Custom')}
                     >
                       Custom...
                     </button>
@@ -269,7 +278,7 @@ export default function ScheduleRoundsModal({ event, onClose, onScheduled }) {
                 </div>
 
                 <div className="schedule-grid-row">
-                  <div className="schedule-field-group" style={{ flex: 1.4 }}>
+                  <div className="schedule-field-group" style={{ flex: 1.2 }}>
                     <label className="schedule-field-label">Confirmed Date</label>
                     <input
                       type="date"
@@ -297,6 +306,35 @@ export default function ScheduleRoundsModal({ event, onClose, onScheduled }) {
                         onClick={() => updateRow(index, 'mode', row.mode === 'offline' ? '' : 'offline')}
                       >
                         Offline
+                      </button>
+                    </div>
+                  </div>
+                  <div className="schedule-field-group" style={{ flex: 1.2 }}>
+                    <label className="schedule-field-label">Location</label>
+                    <div className="location-buttons-group">
+                      <button
+                        type="button"
+                        className={`location-btn ${row.location === 'rvce' ? 'active' : ''}`}
+                        data-value="rvce"
+                        onClick={() => updateRow(index, 'location', row.location === 'rvce' ? '' : 'rvce')}
+                      >
+                        RVCE
+                      </button>
+                      <button
+                        type="button"
+                        className={`location-btn ${row.location === 'rvitm' ? 'active' : ''}`}
+                        data-value="rvitm"
+                        onClick={() => updateRow(index, 'location', row.location === 'rvitm' ? '' : 'rvitm')}
+                      >
+                        RVITM
+                      </button>
+                      <button
+                        type="button"
+                        className={`location-btn ${row.location === 'worksite' ? 'active' : ''}`}
+                        data-value="worksite"
+                        onClick={() => updateRow(index, 'location', row.location === 'worksite' ? '' : 'worksite')}
+                      >
+                        Worksite
                       </button>
                     </div>
                   </div>

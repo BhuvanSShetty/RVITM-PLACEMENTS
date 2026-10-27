@@ -15,7 +15,7 @@ export default function RegistrySelector() {
         subtitle="Select Branch Academic Database"
       />
 
-      <div className="navigation-grid" style={{ marginTop: '40px' }}>
+      <div className="navigation-grid" style={{ marginTop: '16px' }}>
         <NavCard
           id="btn-cse"
           icon={

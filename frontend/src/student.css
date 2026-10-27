@@ -111,7 +111,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 60px 20px;
+  padding: 20px 20px 48px 20px;
   margin: 0 auto;
   min-height: 100vh;
   transition: all 0.3s ease;
@@ -154,7 +154,7 @@ h1, h2, h3, .mini-month-title {
   width: 100%;
   text-align: center;
   animation: fadeIn 0.5s ease;
-  margin-top: 5vh;
+  margin-top: 0;
 }
 
 .luxury-crest {
@@ -339,9 +339,9 @@ h1, h2, h3, .mini-month-title {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding-bottom: 20px;
+  padding-bottom: 16px;
   border-bottom: 1px solid var(--border-gold);
-  margin-bottom: 40px;
+  margin-bottom: 24px;
 }
 
 .btn-back {
@@ -2575,6 +2575,13 @@ tr:hover td {
   transform: translateY(-1px);
 }
 
+.format-btn.active {
+  background-color: #2563eb !important;
+  color: #ffffff !important;
+  border-color: #1d4ed8 !important;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.28) !important;
+}
+
 .format-btn.active[data-value="online"],
 .format-btn.active#format-btn-online {
   background-color: #2563eb !important;
@@ -2589,6 +2596,13 @@ tr:hover td {
   color: #ffffff !important;
   border-color: #c2410c !important;
   box-shadow: 0 4px 12px rgba(234, 88, 12, 0.28) !important;
+}
+
+.location-btn.active {
+  background-color: #0d9488 !important;
+  color: #ffffff !important;
+  border-color: #0f766e !important;
+  box-shadow: 0 4px 12px rgba(13, 148, 136, 0.28) !important;
 }
 
 .location-btn.active[data-value="rvitm"],
@@ -2647,6 +2661,13 @@ tr:hover td {
   transform: translateY(-1px);
 }
 
+.studenttype-btn.active {
+  background-color: #0284c7 !important;
+  color: #ffffff !important;
+  border-color: #0369a1 !important;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.28) !important;
+}
+
 .studenttype-btn.active[data-value="BE"],
 .studenttype-btn.active#studenttype-btn-be {
   background-color: #0284c7 !important;
@@ -2683,12 +2704,14 @@ tr:hover td {
 /* Subtypes selection styling */
 .subtypes-buttons-group {
   display: flex;
-  gap: 10px;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .subtype-btn {
-  flex: 1;
-  padding: 10px 14px;
+  flex: 1 1 auto;
+  min-width: 68px;
+  padding: 8px 14px;
   border: 1.5px solid #d4c5a9;
   border-radius: 8px;
   background-color: #ffffff;
@@ -2699,6 +2722,7 @@ tr:hover td {
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   outline: none;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  text-align: center;
 }
 
 .subtype-btn:hover {
@@ -2706,6 +2730,13 @@ tr:hover td {
   background-color: #fdfbf7;
   color: #1a0f07;
   transform: translateY(-1px);
+}
+
+.subtype-btn.active {
+  background-color: #4f46e5 !important;
+  color: #ffffff !important;
+  border-color: #4338ca !important;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.28) !important;
 }
 
 .subtype-btn.active[data-value="OA"] {
@@ -2722,11 +2753,32 @@ tr:hover td {
   box-shadow: 0 4px 12px rgba(192, 38, 211, 0.28) !important;
 }
 
+.subtype-btn.active[data-value="Interview"] {
+  background-color: #0891b2 !important;
+  color: #ffffff !important;
+  border-color: #0e7490 !important;
+  box-shadow: 0 4px 12px rgba(8, 145, 178, 0.28) !important;
+}
+
+.subtype-btn.active[data-value="HR"] {
+  background-color: #e11d48 !important;
+  color: #ffffff !important;
+  border-color: #be123c !important;
+  box-shadow: 0 4px 12px rgba(225, 29, 72, 0.28) !important;
+}
+
 .subtype-btn.active[data-value="PPT"] {
   background-color: #d97706 !important;
   color: #ffffff !important;
   border-color: #b45309 !important;
   box-shadow: 0 4px 12px rgba(217, 119, 6, 0.28) !important;
+}
+
+.subtype-btn.active[data-value="GD"] {
+  background-color: #ca8a04 !important;
+  color: #ffffff !important;
+  border-color: #a16207 !important;
+  box-shadow: 0 4px 12px rgba(202, 138, 4, 0.28) !important;
 }
 
 /* Event Pill Mode Tags */
@@ -4209,7 +4261,7 @@ tr:hover td {
 /* Mobile responsive styles for SPC Control Panel & General Layout */
 @media (max-width: 640px) {
   #student-app {
-    padding: 24px 16px !important;
+    padding: 12px 14px 28px 14px !important;
   }
 
   /* Center toasts on mobile viewports so they do not clip */

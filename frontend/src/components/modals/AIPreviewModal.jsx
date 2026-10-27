@@ -8,9 +8,18 @@ export default function AIPreviewModal({ initialEvents, onClose, onBack, onConfi
       type: ev.type || 'exams',
       isTbd: ev.date === 'TBD' || ev.isTbd === true || !ev.date,
       date: ev.date === 'TBD' || ev.isTbd === true || !ev.date ? '' : ev.date,
-      mode: ev.mode || 'online',
-      location: ev.location || 'rvitm',
-      studentType: ev.studentType || '',
+      mode: (ev.mode || 'online').trim().toLowerCase(),
+      location: (() => {
+        const l = (ev.location || 'rvitm').trim().toLowerCase();
+        if (l === 'oncampus') return 'rvitm';
+        if (l === 'offcampus') return 'rvce';
+        return l;
+      })(),
+      studentType: (() => {
+        const s = (ev.studentType || '').trim().toUpperCase();
+        if (s === 'BE/MCA' || s === 'BE | MCA') return 'BE | MCA';
+        return s;
+      })(),
       subtypes: Array.isArray(ev.subtypes) ? ev.subtypes : [],
       desc: ev.desc || '',
     }))
@@ -40,8 +49,11 @@ export default function AIPreviewModal({ initialEvents, onClose, onBack, onConfi
   const toggleSubtype = (idx, val) => {
     setEvents((prev) => {
       const copy = [...prev];
-      const cur = copy[idx].subtypes;
-      copy[idx].subtypes = cur.includes(val) ? cur.filter((s) => s !== val) : [...cur, val];
+      const cur = copy[idx].subtypes || [];
+      const exists = cur.some((s) => String(s).trim().toLowerCase() === val.toLowerCase());
+      copy[idx].subtypes = exists
+        ? cur.filter((s) => String(s).trim().toLowerCase() !== val.toLowerCase())
+        : [...cur, val];
       return copy;
     });
   };
@@ -440,19 +452,33 @@ export default function AIPreviewModal({ initialEvents, onClose, onBack, onConfi
               >
                 Rounds
               </label>
-              <div className="subtypes-buttons-group" style={{ display: 'flex', gap: '6px' }}>
-                {['PPT', 'OA', 'Technical'].map((rnd) => (
-                  <button
-                    key={rnd}
-                    type="button"
-                    className={`subtype-btn ${ev.subtypes.includes(rnd) ? 'active' : ''}`}
-                    data-value={rnd}
-                    onClick={() => toggleSubtype(idx, rnd)}
-                    style={{ padding: '6px 12px', fontSize: '0.75rem' }}
-                  >
-                    {rnd}
-                  </button>
-                ))}
+              <div className="subtypes-buttons-group" style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                {(() => {
+                  const standardRounds = ['OA', 'Technical', 'Interview', 'HR', 'PPT', 'GD'];
+                  const allRounds = [...standardRounds];
+                  (ev.subtypes || []).forEach((s) => {
+                    if (s && !allRounds.some((r) => r.toLowerCase() === String(s).trim().toLowerCase())) {
+                      allRounds.push(String(s).trim());
+                    }
+                  });
+                  return allRounds.map((rnd) => {
+                    const isSelected = (ev.subtypes || []).some(
+                      (s) => String(s).trim().toLowerCase() === rnd.toLowerCase()
+                    );
+                    return (
+                      <button
+                        key={rnd}
+                        type="button"
+                        className={`subtype-btn ${isSelected ? 'active' : ''}`}
+                        data-value={rnd}
+                        onClick={() => toggleSubtype(idx, rnd)}
+                        style={{ padding: '6px 12px', fontSize: '0.75rem' }}
+                      >
+                        {rnd}
+                      </button>
+                    );
+                  });
+                })()}
               </div>
             </div>
 

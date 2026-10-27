@@ -15,7 +15,7 @@ export default function SemesterNav({ semesters, activeSem, onSelectSem }) {
         <button
           key={sem}
           className={`sem-btn ${String(activeSem) === String(sem) ? 'active' : ''}`}
-          onClick={() => onSelectSem(sem)}
+          onClick={() => onSelectSem(String(activeSem) === String(sem) ? 'all' : sem)}
         >
           Semester {sem}
         </button>

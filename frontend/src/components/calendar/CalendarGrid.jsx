@@ -38,12 +38,17 @@ export default function CalendarGrid({
 
   // Prev month filler cells
   for (let i = firstDay - 1; i >= 0; i--) {
+    const prevDay = daysInPrevMonth - i;
+    const prevDate = new Date(year, month - 1, prevDay);
+    const prevDateStr = `${prevDate.getFullYear()}-${String(prevDate.getMonth() + 1).padStart(2, '0')}-${String(prevDate.getDate()).padStart(2, '0')}`;
     cells.push(
       <CalendarDayCell
         key={`prev-${i}`}
-        day={daysInPrevMonth - i}
+        day={prevDay}
         isPrevMonth={true}
         isCurrentMonth={false}
+        dateStr={prevDateStr}
+        onSelectDate={onSelectDate}
       />
     );
   }
@@ -96,12 +101,16 @@ export default function CalendarGrid({
   // Next month filler cells
   const remainingCells = 42 - (firstDay + daysInMonth);
   for (let d = 1; d <= remainingCells; d++) {
+    const nextDate = new Date(year, month + 1, d);
+    const nextDateStr = `${nextDate.getFullYear()}-${String(nextDate.getMonth() + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
     cells.push(
       <CalendarDayCell
         key={`next-${d}`}
         day={d}
         isNextMonth={true}
         isCurrentMonth={false}
+        dateStr={nextDateStr}
+        onSelectDate={onSelectDate}
       />
     );
   }
