@@ -1,5 +1,5 @@
 import './style.css';
-import { getAuthSession, clearAuthSession } from './auth.js';
+import { getAuthSession, clearAuthSession } from './services/auth.js';
 
 // Enforce Google Auth Session
 const currentSession = getAuthSession();

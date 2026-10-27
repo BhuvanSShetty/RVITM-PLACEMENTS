@@ -2146,6 +2146,26 @@ tr:hover td {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.modal-card::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal-card::-webkit-scrollbar-track {
+  background: rgba(212, 160, 23, 0.05);
+  border-radius: 4px;
+}
+
+.modal-card::-webkit-scrollbar-thumb {
+  background: var(--gold-satin);
+  border-radius: 4px;
+}
+
+.modal-card::-webkit-scrollbar-thumb:hover {
+  background: var(--gold-dark);
 }
 
 .modal-header {
@@ -2370,8 +2390,8 @@ tr:hover td {
 .modal-form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  margin-top: 12px;
+  gap: 14px;
+  margin-top: 8px;
 }
 
 .form-group {
@@ -2403,6 +2423,11 @@ tr:hover td {
   background-color: #fcfcfc;
   color: var(--text-primary);
   transition: all 0.2s ease;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 70px;
 }
 
 .form-group input[type="text"]:focus,

@@ -1,4 +1,4 @@
-import { ALLOWED_EMAILS, ALLOWED_DOMAIN_REGEX, AUTH_CONFIG } from './auth.config.js';
+import { ALLOWED_EMAILS, ALLOWED_DOMAIN_REGEX, AUTH_CONFIG } from '../config/auth.config.js';
 
 /**
  * Check whether a given email address is in the authorized whitelist or matches domain regex

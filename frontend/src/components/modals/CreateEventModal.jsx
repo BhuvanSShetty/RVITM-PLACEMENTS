@@ -246,7 +246,7 @@ export default function CreateEventModal({
           <label htmlFor="form-desc">Details / Description</label>
           <textarea
             id="form-desc"
-            rows={4}
+            rows={3}
             value={desc}
             onChange={(e) => setDesc(e.target.value)}
             placeholder="Describe placement criteria, eligibility, compensation..."

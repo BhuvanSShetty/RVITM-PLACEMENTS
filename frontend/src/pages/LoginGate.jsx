@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { AUTH_CONFIG } from '../auth.config.js';
-import { triggerGoogleAccountPicker } from '../auth.js';
+import { AUTH_CONFIG } from '../config/auth.config.js';
+import { triggerGoogleAccountPicker } from '../services/auth.js';
 
 export default function LoginGate({ onLoginSuccess }) {
   const [errorInfo, setErrorInfo] = useState(null);

@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { getAuthSession, clearAuthSession, saveAuthSession } from '../auth.js';
+import { getAuthSession, clearAuthSession, saveAuthSession } from '../services/auth.js';
 
 export function useAuth() {
   const [session, setSession] = useState(() => getAuthSession());
