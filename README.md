@@ -702,5 +702,5 @@ npm start
 ---
 
 <p align="center">
-  Built by <a href="https://github.com/BhuvanSShetty">Bhuvan S Shetty</a>
+  Built by <a href="https://github.com/BhuvanSShetty">BUILT BY SPCS FOR SPC AND STUDENTS</a>
 </p>
