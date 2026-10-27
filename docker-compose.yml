@@ -1,0 +1,77 @@
+services:
+  scraper-service:
+    build:
+      context: ./scraper-service
+      dockerfile: Dockerfile
+
+    container_name: vtu_scraper_service
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./exports:/app/exports
+    environment:
+      - MONGO_URI=${MONGO_URI}
+      - TESSERACT_PATH=/usr/bin/tesseract
+      - ADMIN_ID=${ADMIN_ID:-admin}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin123}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: vtu_backend
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGO_URI=${MONGO_URI}
+      - DB_NAME=${DB_NAME:-vtu_database}
+      - JWT_SECRET=${JWT_SECRET}
+      - ADMIN_ID=${ADMIN_ID:-admin}
+      - ADMIN_PW_HASH=${ADMIN_PW_HASH}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - GOOGLE_SERVICE_ACCOUNT_EMAIL=${GOOGLE_SERVICE_ACCOUNT_EMAIL}
+      - GOOGLE_PRIVATE_KEY=${GOOGLE_PRIVATE_KEY}
+      - GOOGLE_CALENDAR_ID=${GOOGLE_CALENDAR_ID}
+    restart: unless-stopped
+
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - VITE_API_BASE_URL=${VITE_API_BASE_URL:-}
+        - VITE_GOOGLE_CLIENT_ID=${VITE_GOOGLE_CLIENT_ID:-}
+        - VITE_SHEET_BLACKLISTED_URL=${VITE_SHEET_BLACKLISTED_URL:-}
+        - VITE_DRIVE_PLACEMENT_URL=${VITE_DRIVE_PLACEMENT_URL:-}
+        - VITE_SHEET_STUDENTS_DB_URL=${VITE_SHEET_STUDENTS_DB_URL:-}
+        - VITE_SHEET_PLACED_DATA_URL=${VITE_SHEET_PLACED_DATA_URL:-}
+        - VITE_SHEET_PLACED_DATA_EMBED_URL=${VITE_SHEET_PLACED_DATA_EMBED_URL:-}
+    container_name: vtu_frontend
+
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  whatsapp-bot:
+    build:
+      context: ./whatsapp-bot
+      dockerfile: Dockerfile
+    container_name: vtu_whatsapp_bot
+    depends_on:
+      - backend
+    volumes:
+      - ./whatsapp-bot/auth_session:/app/auth_session
+    environment:
+      - API_BASE_URL=http://backend:5000
+      - ALLOWED_GROUPS=${ALLOWED_GROUPS:-*}
+
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - ADMIN_ID=${ADMIN_ID:-admin}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin123}
+      - DRY_RUN=${DRY_RUN:-false}
+    restart: unless-stopped

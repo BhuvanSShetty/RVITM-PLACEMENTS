@@ -1,0 +1,12 @@
+requests
+beautifulsoup4
+pymongo
+pytesseract
+pillow
+python-dotenv
+opencv-python
+pdfkit
+openpyxl
+fastapi
+uvicorn[standard]
+ddddocr
