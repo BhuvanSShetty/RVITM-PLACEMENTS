@@ -184,11 +184,11 @@ vtu-project/
 │   ├── exporter.py           # Excel report generator
 │   └── config.py             # Environment variable loader
 ├── frontend/
-│   ├── src/
-│   │   ├── main.js           # Admin dashboard (Scrape/Results/Find/Leaderboard)
-│   │   ├── student.js        # Public student lookup portal
-│   │   ├── style.css         # Admin dashboard styles
-│   │   └── student.css       # Student portal styles
+│   │   ├── main.jsx          # React entry point
+│   │   ├── App.jsx           # Main React router & layout
+│   │   ├── pages/            # React pages (Home, Calendar, CSE/ECE Marks, SPC)
+│   │   ├── components/       # Reusable React components
+│   │   └── student.css       # Portal styles
 │   ├── nginx.conf            # Nginx config (serves static + proxies API)
 │   ├── Dockerfile            # Multi-stage build: Vite → Nginx
 │   └── package.json

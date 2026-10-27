@@ -84,6 +84,7 @@ export default function EditEventModal({ event, onClose, onSaved, onCancelToDeta
             <button
               type="button"
               className={`format-btn ${mode === 'online' ? 'active' : ''}`}
+              data-value="online"
               id="format-btn-online"
               onClick={() => setMode(mode === 'online' ? '' : 'online')}
             >
@@ -92,6 +93,7 @@ export default function EditEventModal({ event, onClose, onSaved, onCancelToDeta
             <button
               type="button"
               className={`format-btn ${mode === 'offline' ? 'active' : ''}`}
+              data-value="offline"
               id="format-btn-offline"
               onClick={() => setMode(mode === 'offline' ? '' : 'offline')}
             >
@@ -105,6 +107,7 @@ export default function EditEventModal({ event, onClose, onSaved, onCancelToDeta
             <button
               type="button"
               className={`location-btn ${location === 'rvce' ? 'active' : ''}`}
+              data-value="rvce"
               id="location-btn-rvce"
               onClick={() => setLocation(location === 'rvce' ? '' : 'rvce')}
             >
@@ -113,6 +116,7 @@ export default function EditEventModal({ event, onClose, onSaved, onCancelToDeta
             <button
               type="button"
               className={`location-btn ${location === 'rvitm' ? 'active' : ''}`}
+              data-value="rvitm"
               id="location-btn-rvitm"
               onClick={() => setLocation(location === 'rvitm' ? '' : 'rvitm')}
             >
@@ -121,6 +125,7 @@ export default function EditEventModal({ event, onClose, onSaved, onCancelToDeta
             <button
               type="button"
               className={`location-btn ${location === 'worksite' ? 'active' : ''}`}
+              data-value="worksite"
               id="location-btn-worksite"
               onClick={() => setLocation(location === 'worksite' ? '' : 'worksite')}
             >
@@ -136,6 +141,7 @@ export default function EditEventModal({ event, onClose, onSaved, onCancelToDeta
             <button
               type="button"
               className={`studenttype-btn ${studentType === 'BE' ? 'active' : ''}`}
+              data-value="BE"
               id="studenttype-btn-be"
               onClick={() => setStudentType(studentType === 'BE' ? '' : 'BE')}
             >
@@ -144,6 +150,7 @@ export default function EditEventModal({ event, onClose, onSaved, onCancelToDeta
             <button
               type="button"
               className={`studenttype-btn ${studentType === 'MCA' ? 'active' : ''}`}
+              data-value="MCA"
               id="studenttype-btn-mca"
               onClick={() => setStudentType(studentType === 'MCA' ? '' : 'MCA')}
             >
@@ -152,6 +159,7 @@ export default function EditEventModal({ event, onClose, onSaved, onCancelToDeta
             <button
               type="button"
               className={`studenttype-btn ${studentType === 'BE | MCA' ? 'active' : ''}`}
+              data-value="BE | MCA"
               id="studenttype-btn-bemca"
               onClick={() => setStudentType(studentType === 'BE | MCA' ? '' : 'BE | MCA')}
             >
@@ -167,6 +175,7 @@ export default function EditEventModal({ event, onClose, onSaved, onCancelToDeta
                 key={rnd}
                 type="button"
                 className={`subtype-btn ${subtypes.includes(rnd) ? 'active' : ''}`}
+                data-value={rnd}
                 onClick={() => toggleSubtype(rnd)}
               >
                 {rnd}

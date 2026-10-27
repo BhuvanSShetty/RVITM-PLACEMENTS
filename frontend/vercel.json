@@ -1,0 +1,16 @@
+{
+  "rewrites": [
+    {
+      "source": "/scraper/(.*)",
+      "destination": "/scraper/index.html"
+    },
+    {
+      "source": "/scraper",
+      "destination": "/scraper/index.html"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
