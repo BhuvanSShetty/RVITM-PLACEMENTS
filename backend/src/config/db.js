@@ -4,13 +4,7 @@ let cachedClient = null;
 
 export async function connectToDatabase() {
   if (cachedClient) {
-    try {
-      await cachedClient.db('admin').command({ ping: 1 });
-      return cachedClient;
-    } catch (err) {
-      console.warn('MongoDB connection stale, reconnecting...', err.message);
-      cachedClient = null;
-    }
+    return cachedClient;
   }
 
   const uri = process.env.MONGO_URI;

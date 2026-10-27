@@ -73,7 +73,14 @@ async function getCollection() {
   return client.db(dbName).collection('calendar_events');
 }
 
+const CACHE_TTL_MS = 15000;
+
 export async function getAllEvents() {
+  const now = Date.now();
+  if (inMemoryEvents && (now - lastCacheTime < CACHE_TTL_MS)) {
+    return inMemoryEvents;
+  }
+
   const collection = await getCollection();
   const events = await collection.find({}).sort({ id: 1 }).toArray();
   const cleanedEvents = events.map(ev => {
@@ -81,7 +88,7 @@ export async function getAllEvents() {
     return ev;
   });
   inMemoryEvents = cleanedEvents;
-  lastCacheTime = Date.now();
+  lastCacheTime = now;
   return cleanedEvents;
 }
 
