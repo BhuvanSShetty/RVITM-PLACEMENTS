@@ -52,9 +52,10 @@ export function useCalendarEventsQuery(isCalendarView = false) {
       return freshEvents;
     },
     initialData: () => loadCachedEvents(),
-    staleTime: 10000, // Consider fresh for 10 seconds
-    refetchInterval: () => (isCalendarView && typeof document !== 'undefined' && !document.hidden ? 15000 : 30000), // 15s when active on calendar, 30s elsewhere
-    refetchOnWindowFocus: false, // Prevent re-fetch spam when switching tabs
+    initialDataUpdatedAt: 0, // Immediately marks cached data as stale so background fetch fires on mount without 10-15s delay
+    staleTime: 5000, // Consider fresh for 5 seconds
+    refetchInterval: () => (isCalendarView && typeof document !== 'undefined' && !document.hidden ? 10000 : 30000), // 10s when active on calendar, 30s elsewhere
+    refetchOnWindowFocus: true, // Immediately re-fetch when switching back to tab
   });
 
   // Cross-tab storage event synchronization
@@ -133,7 +134,7 @@ export function useCalendarEventsQuery(isCalendarView = false) {
     events: query.data || [],
     isLoading: query.isLoading,
     isSyncing,
-    isEventsFetched: !!query.data && query.data.length > 0,
+    isEventsFetched: query.isFetched || (Array.isArray(query.data) && query.data.length > 0),
     refetchEvents: query.refetch,
     lastUpdatedEvent,
     clearLastUpdatedEvent: () => setLastUpdatedEvent(null),
@@ -151,7 +152,13 @@ export function useStudentResultQuery(usn) {
     queryFn: () => fetchStudentResultApi(usn),
     enabled: !!usn,
     staleTime: 5 * 60 * 1000,
-    retry: 1,
+    retry: (failureCount, error) => {
+      // Do not delay not found (404) errors with retries
+      if (error?.message?.toLowerCase().includes('not found') || error?.status === 404) {
+        return false;
+      }
+      return failureCount < 1;
+    },
   });
 }
 

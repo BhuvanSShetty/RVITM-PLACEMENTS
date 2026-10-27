@@ -9,6 +9,7 @@ if (!process.env.MONGO_URI) {
 }
 
 import cron from 'node-cron';
+import { connectToDatabase } from './src/config/db.js';
 import authRouter from './src/routes/auth.js';
 import verifyRouter from './src/routes/verify.js';
 import resultsRouter from './src/routes/results.js';
@@ -64,6 +65,11 @@ if (process.env.NODE_ENV !== 'test') {
     console.log(`   - Auth:     http://localhost:${PORT}/api/auth`);
     console.log(`   - Verify:   http://localhost:${PORT}/api/verify`);
     console.log(`   - AI Parse: http://localhost:${PORT}/api/ai/parse`);
+
+    // Pre-warm database connection pool so first incoming request is instant
+    connectToDatabase()
+      .then(() => console.log('⚡ Connected & pre-warmed MongoDB connection pool'))
+      .catch((err) => console.warn('⚠️ Initial MongoDB connection warning:', err.message));
 
     // Cron job: run every 5 minutes (*/5 * * * *) to prevent server sleep / cold starts
     const pingTarget = process.env.PING_URL || `http://localhost:${PORT}/health`;

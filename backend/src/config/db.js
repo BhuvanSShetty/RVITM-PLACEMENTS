@@ -20,5 +20,12 @@ export async function connectToDatabase() {
 
   await client.connect();
   cachedClient = client;
+
+  // Background ensure index on calendar_events id for high-speed sorted retrieval
+  try {
+    const dbName = process.env.DB_NAME || 'vtu_database';
+    client.db(dbName).collection('calendar_events').createIndex({ id: 1 }).catch(() => {});
+  } catch {}
+
   return client;
 }

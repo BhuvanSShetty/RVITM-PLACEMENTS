@@ -63,7 +63,14 @@ export default function App() {
 
   // If not authenticated, render Login Gate
   if (!isAuthenticated) {
-    return <LoginGate onLoginSuccess={(s) => login(s.token, s)} />;
+    return (
+      <LoginGate
+        onLoginSuccess={(s) => {
+          login(s.token, s);
+          refetchEvents();
+        }}
+      />
+    );
   }
 
   // Derive root container view class name to maintain exact original CSS styles

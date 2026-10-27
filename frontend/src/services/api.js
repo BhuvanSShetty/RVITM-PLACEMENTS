@@ -75,11 +75,20 @@ export async function fetchStudentResultApi(usn) {
 }
 
 export async function fetchECEStudentsApi() {
-  const res = await fetch('/ece_students.json');
-  if (!res.ok) {
-    throw new Error('Failed to load ECE registry.');
+  try {
+    const res = await fetch('/ece_students.json');
+    if (!res.ok) {
+      return [];
+    }
+    const contentType = res.headers.get('content-type') || '';
+    if (!contentType.includes('application/json')) {
+      return [];
+    }
+    return await res.json();
+  } catch (err) {
+    console.warn('ECE registry load notice:', err.message);
+    return [];
   }
-  return res.json();
 }
 
 // ----------------- AUTH & ADMIN -----------------
