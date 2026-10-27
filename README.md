@@ -702,5 +702,5 @@ npm start
 ---
 
 <p align="center">
-  <a>BUILT BY SPCS FOR SPC AND STUDENTS</a>
+  <a>BUILT BY SPCS FOR SPCS , TEACHERS AND STUDENTS</a>
 </p>
