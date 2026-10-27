@@ -4545,17 +4545,20 @@ tr:hover td {
 }
 
 .login-gate-crest {
-  width: 64px;
-  height: 64px;
-  margin: 0 auto 20px;
-  background: linear-gradient(135deg, var(--wood-dark), var(--wood-medium));
-  color: var(--gold-satin);
-  border-radius: 16px;
+  width: 92px;
+  height: 92px;
+  margin: 0 auto 18px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 16px rgba(42, 27, 17, 0.2), inset 0 1px 1px rgba(229, 212, 179, 0.4);
-  border: 1px solid rgba(197, 160, 89, 0.4);
+}
+
+.login-gate-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  mix-blend-mode: multiply;
 }
 
 .login-gate-title {
